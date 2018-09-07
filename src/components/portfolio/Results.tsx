@@ -1,10 +1,19 @@
 import * as React from 'react';
-// import Card from './card';
+import Card from './Card';
+import { Project } from '../../models';
 
-export default class Results extends React.Component<{}, {}> {
+interface Props {
+	projects: Project[];
+}
+
+export default class Results extends React.Component<Props, {}> {
 	render() {
 		return (
-			<h1>These are some results...</h1>
+			<ul className="plist">
+				{this.props.projects.map((project: Project) => {
+					return <li><Card project={project} /></li>;
+				})}
+			</ul>
 		);
 	}
 }

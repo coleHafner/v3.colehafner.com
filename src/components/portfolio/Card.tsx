@@ -1,23 +1,21 @@
 import * as React from 'react';
+import { Project } from '../../models';
 
-interface CardProps {
-	description: string;
-	externalLink: string;
-	title: string;
-	imageLink: string;
+interface Props {
+	project: Project;
 }
 
-export default class Card extends React.Component<CardProps, {}> {
+export default class Card extends React.Component<Props, {}> {
 	render() {
 		return (
 			<div className="panel">
-				<h4 className="">{this.props.title}</h4>
+				<h4 className="">{this.props.project.name}</h4>
 				<a
 					className="inner"
-					href={this.props.externalLink}
+					href={this.props.project.url}
 					target="_blank"
-					style={{background: `url(${this.props.imageLink}) left top`, backgroundSize: 'cover'}}>
-					<div className="desc">{this.props.description}</div>
+					style={{background: `url(${this.props.project.img}) left top`, backgroundSize: 'cover'}}>
+					<div className="desc">{this.props.project.desc}</div>
 				</a>
 			</div>
 		);

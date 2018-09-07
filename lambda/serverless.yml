@@ -72,6 +72,7 @@ functions:
           path: projects
           method: get
           private: true
+          cors: true
 #      - s3: ${env:BUCKET}
 #      - schedule: rate(10 minutes)
 #      - sns: greeter-topic

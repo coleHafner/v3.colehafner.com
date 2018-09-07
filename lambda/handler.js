@@ -3,6 +3,9 @@
 module.exports.hello = async (event, context) => {
 	return {
 		statusCode: 200,
+		headers: {
+			'Access-Control-Allow-Origin': '*'
+		},
 		body: JSON.stringify({
 			projects: [{
 				name: 'Manifest Insights',

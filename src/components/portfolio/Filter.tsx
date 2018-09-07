@@ -7,9 +7,15 @@ interface State {
 	selectedTags: string[];
 	term: string;
 	selectedIndex: number;
+	projects: [];
 }
 
-export default class Filter extends React.Component<{}, State> {
+interface Props {
+	onFilterChange: Function;
+	totalResults: number;
+}
+
+export default class Filter extends React.Component<Props, State> {
 	constructor(props: any) {
 		super(props);
 		this.state = {
@@ -27,6 +33,7 @@ export default class Filter extends React.Component<{}, State> {
 			filteredTags: [],
 			term: '',
 			selectedIndex: 0,
+			projects: [],
 		};
 	}
 
@@ -41,11 +48,14 @@ export default class Filter extends React.Component<{}, State> {
 			selectedTags,
 			filteredTags,
 		});
+
+		this.props.onFilterChange(selectedTags);
 	}
 
 	@debounce(100)
 	onKeyUp($event: any): void {
 		const keyPressed: string = $event.key;
+		const term: string = $event.target.value || '';
 
 		switch (keyPressed) {
 			case 'ArrowDown':
@@ -71,9 +81,13 @@ export default class Filter extends React.Component<{}, State> {
 			case 'Enter':
 				this.addToSelected();
 				break;
+
 			default:
-				const term: string = $event.target.value || '';
 				let filteredTags: string[] = [];
+
+				if (keyPressed === 'Backspace' && this.state.term.length === 0) {
+					this.removeTag(this.state.selectedTags.length - 1);
+				}
 
 				if (term.length) {
 					filteredTags = this.state.allTags.filter((tag: string): boolean => {
@@ -93,43 +107,58 @@ export default class Filter extends React.Component<{}, State> {
 	private addToSelected() {
 		if (this.state.selectedIndex >= 0) {
 			let selectedTags = this.state.selectedTags.slice(),
-				filteredTags = this.state.filteredTags.slice();
+				filteredTags = this.state.filteredTags.slice(),
+				selectedIndex = this.state.selectedIndex;
 
 			selectedTags.push(this.state.filteredTags[this.state.selectedIndex]);
 			filteredTags.splice(this.state.selectedIndex, 1);
 
+			// if you choose the last one on the list, shift the selected index to the new end of the list
+			if (selectedIndex > (filteredTags.length - 1)) {
+				selectedIndex = (filteredTags.length - 1);
+			}
+
 			this.setState({
 				selectedTags,
 				filteredTags,
+				selectedIndex,
 			});
+
+			this.props.onFilterChange(selectedTags);
 		}
 	}
 
 	render() {
 		return (
 			<div className="filters">
+				<div className="result-count">{this.props.totalResults} result<span ng-show="ctrl.resultCount !== 1">s</span></div>
 				<div className="inner">
-					<i className="fi-magnifying-glass search-icon"></i>
-					<div className="result-count">8 result<span ng-show="ctrl.resultCount !== 1">s</span></div>
-					<div style={{ display: this.state.selectedTags.length > 0 ? 'block' : 'none' }}>
-						<ul>
-							{this.state.selectedTags.map((tag: string, i: number) => {
-								return React.createElement('a', { onClick: this.removeTag.bind(this, [i]), href: '#' }, `${tag}`);
-							})}
-						</ul>
-					</div>
+
+					{this.state.selectedTags.map((tag: string, i: number) => {
+						return React.createElement('div', {}, React.createElement('a', {
+							onClick: this.removeTag.bind(this, [i]),
+							href: '#',
+							className: 'tag',
+						},
+							React.createElement('span', {}, `${tag}`),
+						),
+						);
+					})}
 					<input type="text" placeholder="Filter by technology" onKeyUp={this.onKeyUp.bind(this)} />
-					<div style={{ display: this.state.filteredTags.length > 0 ? 'block' : 'none' }}>
-						<ul>
-							{this.state.filteredTags.map((tag: string, i: number) => {
-								const selectedBgColor = this.state.selectedIndex === i ? 'blue' : 'white';
-								const selectedColor = this.state.selectedIndex === i ? 'white' : 'black';
-								const selectedStyle = { backgroundColor: selectedBgColor, color: selectedColor };
-								return React.createElement('li', { onClick: this.addToSelected.bind(this), style: selectedStyle }, `${tag}`);
-							})}
-						</ul>
-					</div>
 				</div>
+
+				<div
+					style={{ display: this.state.filteredTags.length > 0 ? 'block' : 'none' }}
+					className="auto-complete"
+				>
+					<ul>
+						{this.state.filteredTags.map((tag: string, i: number) => {
+							const className: string = this.state.selectedIndex === i ? 'active' : '';
+							return React.createElement('li', { onClick: this.addToSelected.bind(this), className }, `${tag}`);
+						})}
+					</ul>
+				</div>
+
 			</div>
 		);
 	}
