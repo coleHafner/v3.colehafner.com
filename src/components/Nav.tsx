@@ -3,10 +3,11 @@ import { NavLink } from 'react-router-dom';
 
 export default class Nav extends React.Component<any, any> {
 	render() {
+		const logoStyle = {background: 'url(images/logo.png) center center no-repeat', backgroundSize: '150px'};
 		return (
 			<div className="app-nav clearfix visible no-print">
 				<div className="inner">
-					<div className="logo"><span>CH</span></div>
+					<div className="logo" style={logoStyle}><span>CH</span></div>
 					<ul>
 						<li>
 							<NavLink to="/" exact activeClassName="active">About</NavLink>

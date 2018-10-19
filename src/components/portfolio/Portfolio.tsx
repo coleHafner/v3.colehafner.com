@@ -7,6 +7,7 @@ import { Project } from '../../models';
 interface State {
 	allProjects: Project[];
 	selectedProjects: Project[];
+	tags: string[];
 }
 
 export default class Portfolio extends React.Component<{}, State> {
@@ -15,6 +16,7 @@ export default class Portfolio extends React.Component<{}, State> {
 		this.state = {
 			allProjects: [],
 			selectedProjects: [],
+			tags: [],
 		};
 	}
 
@@ -32,8 +34,18 @@ export default class Portfolio extends React.Component<{}, State> {
 					throw new Error('Cannot retrieve projects');
 				}
 
+				let allTags: string[] = [];
+				allProjects.forEach(project => {
+					allTags = allTags.concat(project.tags);
+				});
+
+				const tags = allTags.filter((tag: string, curIndex: number, allTags: string[]): boolean => {
+					return allTags.indexOf(tag) === curIndex;
+				});
+
+				tags.sort();
 				const selectedProjects = allProjects.slice();
-				this.setState({ allProjects, selectedProjects });
+				this.setState({ allProjects, selectedProjects, tags });
 			})
 			.catch(err => {
 				console.log('err', err);
@@ -68,6 +80,7 @@ export default class Portfolio extends React.Component<{}, State> {
 				<Filter
 					onFilterChange={this.onFilterChange.bind(this)}
 					totalResults={this.state.selectedProjects.length}
+					tags={this.state.tags}
 				/>
 				<Results projects={this.state.selectedProjects} />
 			</div>

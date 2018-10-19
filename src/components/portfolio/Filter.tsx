@@ -2,7 +2,6 @@ import * as React from 'react';
 import { debounce } from 'typescript-debounce-decorator';
 
 interface State {
-	allTags: string[];
 	filteredTags: string[];
 	selectedTags: string[];
 	term: string;
@@ -13,22 +12,13 @@ interface State {
 interface Props {
 	onFilterChange: Function;
 	totalResults: number;
+	tags: string[];
 }
 
 export default class Filter extends React.Component<Props, State> {
 	constructor(props: any) {
 		super(props);
 		this.state = {
-			allTags: [
-				'angularjs',
-				'html',
-				'javascript',
-				'reactjs',
-				'laravel',
-				'php',
-				'vuejs',
-				'typescript',
-			],
 			selectedTags: [],
 			filteredTags: [],
 			term: '',
@@ -43,6 +33,7 @@ export default class Filter extends React.Component<Props, State> {
 
 		filteredTags.push(this.state.selectedTags[index]);
 		selectedTags.splice(index, 1);
+		filteredTags.sort();
 
 		this.setState({
 			selectedTags,
@@ -56,11 +47,17 @@ export default class Filter extends React.Component<Props, State> {
 	onKeyUp($event: any): void {
 		const keyPressed: string = $event.key;
 		const term: string = $event.target.value || '';
+		let filteredTags: string[] = [];
 
 		switch (keyPressed) {
 			case 'ArrowDown':
 			case 'ArrowUp':
 				let selectedIndex: number = this.state.selectedIndex;
+				const newState: any = {};
+
+				if (!term.length && !this.state.filteredTags.length) {
+					newState.filteredTags = this.props.tags.slice();
+				}
 
 				switch ($event.key) {
 					case 'ArrowDown':
@@ -75,7 +72,8 @@ export default class Filter extends React.Component<Props, State> {
 						break;
 				}
 
-				this.setState({ selectedIndex });
+				newState.selectedIndex = selectedIndex;
+				this.setState(newState);
 				break;
 
 			case 'Enter':
@@ -83,15 +81,15 @@ export default class Filter extends React.Component<Props, State> {
 				break;
 
 			default:
-				let filteredTags: string[] = [];
-
 				if (keyPressed === 'Backspace' && this.state.term.length === 0) {
 					this.removeTag(this.state.selectedTags.length - 1);
 				}
 
-				if (term.length) {
-					filteredTags = this.state.allTags.filter((tag: string): boolean => {
-						const regex: RegExp = new RegExp(term, 'g');
+				const escapedTerm = term.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+
+				if (escapedTerm.length) {
+					filteredTags = this.props.tags.filter((tag: string): boolean => {
+						const regex: RegExp = new RegExp(escapedTerm, 'g');
 						return regex.test(tag) && !this.state.selectedTags.includes(tag);
 					});
 				}
@@ -137,8 +135,8 @@ export default class Filter extends React.Component<Props, State> {
 					{this.state.selectedTags.map((tag: string, i: number) => {
 						return React.createElement('div', {}, React.createElement('a', {
 							onClick: this.removeTag.bind(this, [i]),
-							href: '#',
 							className: 'tag',
+							href: '#',
 						},
 							React.createElement('span', {}, `${tag}`),
 						),
