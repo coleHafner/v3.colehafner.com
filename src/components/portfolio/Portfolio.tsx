@@ -64,7 +64,6 @@ export default class Portfolio extends React.Component<{}, State> {
 						doesInclude = true;
 						break;
 					}
-
 				}
 
 				return doesInclude;

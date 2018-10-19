@@ -7,6 +7,7 @@ interface State {
 	term: string;
 	selectedIndex: number;
 	projects: [];
+	showingTags: boolean;
 }
 
 interface Props {
@@ -24,6 +25,7 @@ export default class Filter extends React.Component<Props, State> {
 			term: '',
 			selectedIndex: 0,
 			projects: [],
+			showingTags: false,
 		};
 	}
 
@@ -50,10 +52,16 @@ export default class Filter extends React.Component<Props, State> {
 		let filteredTags: string[] = [];
 
 		switch (keyPressed) {
+			case 'Escape':
+				this.setState({showingTags: false});
+				break;
+
 			case 'ArrowDown':
 			case 'ArrowUp':
 				let selectedIndex: number = this.state.selectedIndex;
-				const newState: any = {};
+				const newState: any = {
+					showingTags: true,
+				};
 
 				if (!term.length && !this.state.filteredTags.length) {
 					newState.filteredTags = this.props.tags.slice();
@@ -97,6 +105,7 @@ export default class Filter extends React.Component<Props, State> {
 				this.setState({
 					term,
 					filteredTags,
+					showingTags: true,
 				});
 				break;
 		}
@@ -120,6 +129,7 @@ export default class Filter extends React.Component<Props, State> {
 				selectedTags,
 				filteredTags,
 				selectedIndex,
+				showingTags: false,
 			});
 
 			this.props.onFilterChange(selectedTags);
@@ -137,22 +147,23 @@ export default class Filter extends React.Component<Props, State> {
 							onClick: this.removeTag.bind(this, [i]),
 							className: 'tag',
 							href: '#',
+							key: tag,
 						},
 							React.createElement('span', {}, `${tag}`),
 						),
 						);
 					})}
-					<input type="text" placeholder="Filter by technology" onKeyUp={this.onKeyUp.bind(this)} />
+					<input type="text" placeholder="Filter by tag" onKeyUp={e => this.onKeyUp(e)} />
 				</div>
 
 				<div
-					style={{ display: this.state.filteredTags.length > 0 ? 'block' : 'none' }}
+					style={{ display: this.state.filteredTags.length > 0 && this.state.showingTags ? 'block' : 'none' }}
 					className="auto-complete"
 				>
 					<ul>
 						{this.state.filteredTags.map((tag: string, i: number) => {
 							const className: string = this.state.selectedIndex === i ? 'active' : '';
-							return React.createElement('li', { onClick: this.addToSelected.bind(this), className }, `${tag}`);
+							return React.createElement('li', { onClick: this.addToSelected.bind(this), className, key: tag }, `${tag}`);
 						})}
 					</ul>
 				</div>
