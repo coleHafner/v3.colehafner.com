@@ -5,7 +5,9 @@
   "scripts": {
     "start": "node scripts/start.js",
     "build": "node scripts/build.js",
-    "test": "node scripts/test.js --env=jsdom"
+	"test": "node scripts/test.js --env=jsdom",
+	"lint": "tslint --project . --config tslint.prod.json",
+	"lintfix": "tslint --project . --config tslint.prod.json --fix"
   },
   "keywords": [
     "portfolio",

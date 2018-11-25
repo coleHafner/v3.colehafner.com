@@ -17,6 +17,8 @@ interface Props {
 }
 
 export default class Filter extends React.Component<Props, State> {
+	textInputRef: any;
+
 	constructor(props: any) {
 		super(props);
 		this.state = {
@@ -27,6 +29,8 @@ export default class Filter extends React.Component<Props, State> {
 			projects: [],
 			showingTags: false,
 		};
+
+		this.textInputRef = React.createRef();
 	}
 
 	removeTag(index: number): void {
@@ -43,6 +47,18 @@ export default class Filter extends React.Component<Props, State> {
 		});
 
 		this.props.onFilterChange(selectedTags);
+	}
+
+	onFocus($event: any) {
+		const term: string = $event.target.value || '';
+		if (!term.length) {
+			const newState: any = { showingTags: true };
+			if (!this.state.filteredTags.length) {
+				newState.filteredTags = this.props.tags.slice();
+			}
+
+			this.setState(newState);
+		}
 	}
 
 	@debounce(100)
@@ -111,17 +127,21 @@ export default class Filter extends React.Component<Props, State> {
 		}
 	}
 
-	private addToSelected() {
-		if (this.state.selectedIndex >= 0) {
+	private addToSelected(clickIndex: any = null) {
+		const index = clickIndex === null
+			? this.state.selectedIndex
+			: clickIndex;
+
+		if (index >= 0) {
 			let selectedTags = this.state.selectedTags.slice(),
 				filteredTags = this.state.filteredTags.slice(),
 				selectedIndex = this.state.selectedIndex;
 
-			selectedTags.push(this.state.filteredTags[this.state.selectedIndex]);
-			filteredTags.splice(this.state.selectedIndex, 1);
+			selectedTags.push(this.state.filteredTags[index]);
+			filteredTags.splice(index, 1);
 
 			// if you choose the last one on the list, shift the selected index to the new end of the list
-			if (selectedIndex > (filteredTags.length - 1)) {
+			if (index === selectedIndex && selectedIndex > (filteredTags.length - 1)) {
 				selectedIndex = (filteredTags.length - 1);
 			}
 
@@ -129,17 +149,26 @@ export default class Filter extends React.Component<Props, State> {
 				selectedTags,
 				filteredTags,
 				selectedIndex,
-				showingTags: false,
+				showingTags: true,
 			});
 
 			this.props.onFilterChange(selectedTags);
+		}
+
+		// focus back on the text input
+		if (clickIndex !== null) {
+			this.textInputRef.current.focus();
 		}
 	}
 
 	render() {
 		return (
 			<div className="filters">
-				<div className="result-count">{this.props.totalResults} result<span ng-show="ctrl.resultCount !== 1">s</span></div>
+				<div className="result-count">
+					{this.props.totalResults} result
+					<span ng-show="ctrl.resultCount !== 1">s</span>
+				</div>
+
 				<div className="inner">
 
 					{this.state.selectedTags.map((tag: string, i: number) => {
@@ -153,7 +182,13 @@ export default class Filter extends React.Component<Props, State> {
 						),
 						);
 					})}
-					<input type="text" placeholder="Filter by tag" onKeyUp={e => this.onKeyUp(e)} />
+					<input
+						type="text"
+						placeholder="Filter by tag"
+						onKeyUp={e => this.onKeyUp(e)}
+						onFocus={e => this.onFocus(e) }
+						ref={this.textInputRef}
+					/>
 				</div>
 
 				<div
@@ -163,7 +198,7 @@ export default class Filter extends React.Component<Props, State> {
 					<ul>
 						{this.state.filteredTags.map((tag: string, i: number) => {
 							const className: string = this.state.selectedIndex === i ? 'active' : '';
-							return React.createElement('li', { onClick: this.addToSelected.bind(this), className, key: tag }, `${tag}`);
+							return React.createElement('li', { onClick: this.addToSelected.bind(this, i), className, key: tag }, `${tag}`);
 						})}
 					</ul>
 				</div>

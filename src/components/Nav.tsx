@@ -1,14 +1,32 @@
 import * as React from 'react';
 import { NavLink } from 'react-router-dom';
 
-export default class Nav extends React.Component<any, any> {
+interface MyState {
+	navClass: string;
+}
+
+export default class Nav extends React.Component<any, MyState> {
+	constructor(props: any) {
+		super(props);
+		this.state = {
+			navClass: '',
+		};
+	}
+
+	toggleNav(e: React.MouseEvent): void {
+		e.preventDefault();
+		e.stopPropagation();
+		const navClass: string = !this.state.navClass ? 'visible' : '';
+		this.setState({navClass });
+	}
+
 	render() {
 		const logoStyle = {background: 'url(images/logo.png) center center no-repeat', backgroundSize: '150px'};
 		return (
 			<div className="app-nav clearfix visible no-print">
 				<div className="inner">
 					<div className="logo" style={logoStyle}><span>CH</span></div>
-					<ul>
+					<ul className={this.state.navClass}>
 						<li>
 							<NavLink to="/" exact activeClassName="active">About</NavLink>
 						</li>
@@ -42,7 +60,7 @@ export default class Nav extends React.Component<any, any> {
 					</div>
 				</div>
 
-				<a href="#" ng-click="toggle()" className="toggle">
+				<a href="#" onClick={e => this.toggleNav(e)} className="toggle">
 					<i className="fi-list"></i>
 				</a>
 			</div>

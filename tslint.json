@@ -1,5 +1,6 @@
 {
-    "rules": {
+	"defaultSeverity": "warn",
+	"rules": {
         "class-name": true,
 	"trailing-comma": [true, {"multiline": "always", "singleline": "ignore"}],
         "comment-format": [

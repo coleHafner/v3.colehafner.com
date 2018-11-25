@@ -130,6 +130,7 @@ h4 {
 	}
 	
 	ul {
+		display: block;
 		list-style: none;
 		margin-left: 0;
 		padding: 0;
@@ -147,6 +148,11 @@ h4 {
 				text-align: center;
 				margin-bottom: 10px;
 				text-transform: uppercase;
+				color: #000;
+
+				&:visited {
+					color: #000;
+				}
 			
 				&:hover, &.active {
 					background-color: dodgerblue;
@@ -249,9 +255,10 @@ h4 {
 					background-color: white;
 					color: black;
 
-					&.active {
+					&.active, &:hover {
 						background-color: dodgerblue;
 						color: white;
+						cursor: pointer;
 					}
 
 				}
@@ -438,7 +445,7 @@ h4 {
 	}
 	
 	.app-nav .logo {
-		background-image: none;
+		background-image: none !important;
 		background-color: #fff;
 		border: 3px solid #000;
 		width: 80px;
@@ -460,6 +467,10 @@ h4 {
 		display: none;
 		background-color: #fff;
 		margin-top: 30px;
+
+		&.visible {
+			display: block;
+		}
 	}
 }
 
