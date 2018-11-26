@@ -1,22 +1,32 @@
 import * as React from 'react';
 import { NavLink } from 'react-router-dom';
 import '../fonts/foundation-icons.css';
+import { withRouter } from 'react-router';
 
 interface State {
 	navClass: string;
 }
 
-export default class Nav extends React.Component<any, State> {
+class Nav extends React.Component<any, State> {
 	constructor(props: any) {
 		super(props);
 		this.state = {
 			navClass: '',
 		};
+
+		this.props.history.listen((location: any, action: any) => {
+			if (this.state.navClass) {
+				this.setState({navClass: ''});
+			}
+		});
 	}
 
-	toggleNav(e: React.MouseEvent): void {
-		e.preventDefault();
-		e.stopPropagation();
+	toggleNav(e?: React.MouseEvent): void {
+		if (e) {
+			e.preventDefault();
+			e.stopPropagation();
+		}
+
 		const navClass: string = !this.state.navClass ? 'visible' : '';
 		this.setState({navClass});
 	}
@@ -36,7 +46,7 @@ export default class Nav extends React.Component<any, State> {
 						</li>
 
 						<li>
-							<a href="https://coleonsoftware.com" target="_blank">
+							<a onClick={e => this.toggleNav()} href="https://coleonsoftware.com" target="_blank">
 								Blog
 							</a>
 						</li>
@@ -68,3 +78,5 @@ export default class Nav extends React.Component<any, State> {
 		);
 	}
 }
+
+export default withRouter(Nav);
