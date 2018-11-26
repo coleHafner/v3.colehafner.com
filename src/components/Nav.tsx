@@ -1,11 +1,12 @@
 import * as React from 'react';
 import { NavLink } from 'react-router-dom';
+import '../fonts/foundation-icons.css';
 
-interface MyState {
+interface State {
 	navClass: string;
 }
 
-export default class Nav extends React.Component<any, MyState> {
+export default class Nav extends React.Component<any, State> {
 	constructor(props: any) {
 		super(props);
 		this.state = {
@@ -17,7 +18,7 @@ export default class Nav extends React.Component<any, MyState> {
 		e.preventDefault();
 		e.stopPropagation();
 		const navClass: string = !this.state.navClass ? 'visible' : '';
-		this.setState({navClass });
+		this.setState({navClass});
 	}
 
 	render() {
@@ -54,7 +55,7 @@ export default class Nav extends React.Component<any, MyState> {
 							<i className="fi-social-linkedin"></i>
 						</a>
 
-						<a href="http://colescodeco.tumblr.com" target="_blank">
+						<a href="http://coleonsoftware.com" target="_blank">
 							<i className="fi-social-tumblr"></i>
 						</a>
 					</div>
