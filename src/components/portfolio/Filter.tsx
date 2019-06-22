@@ -163,7 +163,7 @@ export default class Filter extends React.Component<Props, State> {
 
 	render() {
 		return (
-			<div className="filters">
+			<div className="filters" onClick={() => this.textInputRef.current.focus() }>
 				<div className="result-count">
 					{this.props.totalResults} result
 					<span ng-show="ctrl.resultCount !== 1">s</span>
@@ -171,17 +171,13 @@ export default class Filter extends React.Component<Props, State> {
 
 				<div className="inner">
 
-					{this.state.selectedTags.map((tag: string, i: number) => {
-						return React.createElement('div', {}, React.createElement('a', {
-							onClick: this.removeTag.bind(this, [i]),
-							className: 'tag',
-							href: '#',
-							key: tag,
-						},
-							React.createElement('span', {}, `${tag}`),
-						),
-						);
-					})}
+					{this.state.selectedTags.map((tag: string, i: number) =>
+						<div>
+							<a className="tag" href="#" key={tag} onClick={() => this.removeTag(i)}>
+								<span>{tag}</span>
+							</a>
+						</div>,
+					)}
 					<input
 						type="text"
 						placeholder="Filter by tag"
@@ -196,10 +192,11 @@ export default class Filter extends React.Component<Props, State> {
 					className="auto-complete"
 				>
 					<ul>
-						{this.state.filteredTags.map((tag: string, i: number) => {
-							const className: string = this.state.selectedIndex === i ? 'active' : '';
-							return React.createElement('li', { onClick: this.addToSelected.bind(this, i), className, key: tag }, `${tag}`);
-						})}
+						{this.state.filteredTags.map((tag: string, i: number) =>
+							<li onClick={() => this.addToSelected(i)} className={this.state.selectedIndex === i ? 'active' : ''} key={`${tag}-${i}`}>
+								{tag}
+							</li>,
+						)}
 					</ul>
 				</div>
 

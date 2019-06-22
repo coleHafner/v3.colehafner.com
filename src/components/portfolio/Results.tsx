@@ -10,9 +10,9 @@ export default class Results extends React.Component<Props, {}> {
 	render() {
 		return (
 			<ul className="plist">
-				{this.props.projects.map((project: Project) => {
-					return <li key={project.url}><Card project={project} /></li>;
-				})}
+				{this.props.projects.map((project: Project) =>
+					<li key={project.url}><Card project={project} /></li>,
+				)}
 			</ul>
 		);
 	}
