@@ -7,7 +7,8 @@
     "dev": "node scripts/start.js",
     "lint": "tslint --project . --config tslint.prod.json",
     "lintfix": "tslint --project . --config tslint.prod.json --fix",
-    "test": "node scripts/test.js --env=jsdom"
+    "test": "node scripts/test.js --env=jsdom",
+    "serve": "node_modules/.bin/serve build"
   },
   "keywords": [
     "portfolio",
@@ -23,7 +24,7 @@
     "@types/react": "^16.8.22",
     "@types/react-dom": "^16.0.7",
     "@types/react-router-dom": "^4.3.0",
-    "serve": "^10.0.2",
+    "serve": "^10.1.2",
     "typescript": "^3.0.3",
     "webpack-plugin-replace": "^1.2.0"
   },
