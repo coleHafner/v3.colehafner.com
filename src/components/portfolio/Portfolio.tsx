@@ -1,7 +1,8 @@
 import * as React from 'react';
-import Filter from './Filter';
-import Results from './Results';
 import axios from 'axios';
+
+import Filter from './Filter';
+import { Results } from './Results';
 import { Project } from '../../models';
 
 interface State {
