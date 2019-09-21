@@ -6,4 +6,4 @@ export const About: React.FunctionComponent = () =>
 		<h3>
 			I'm a passionate software engineer, husband, and father.
 		</h3>
-	</div>
+	</div>;

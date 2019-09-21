@@ -2,12 +2,15 @@ import * as React from 'react';
 import { NavLink } from 'react-router-dom';
 import '../fonts/foundation-icons.css';
 import { withRouter } from 'react-router';
+const env = require('../env');
 
 interface State {
 	navClass: string;
 }
 
 class Nav extends React.Component<any, State> {
+	private appVersion: string;
+
 	constructor(props: any) {
 		super(props);
 		this.state = {
@@ -19,6 +22,8 @@ class Nav extends React.Component<any, State> {
 				this.setState({navClass: ''});
 			}
 		});
+
+		this.appVersion = env.appVersion;
 	}
 
 	toggleNav(e?: React.MouseEvent): void {
@@ -33,7 +38,7 @@ class Nav extends React.Component<any, State> {
 
 	render() {
 		const logoStyle = {background: 'url(images/logo.png) center center no-repeat', backgroundSize: '150px'};
-		const appVersion = 'process.env.APP_VERSION'.replace('"', '');
+
 		return (
 			<div className="app-nav clearfix visible no-print">
 				<div className="inner">
@@ -49,13 +54,16 @@ class Nav extends React.Component<any, State> {
 						<li>
 							<a onClick={e => this.toggleNav()} href="https://medium.com/@colehafner" target="_blank">
 								Blog
-								
 							</a>
 						</li>
 					</ul>
-					version {appVersion}
 
 					<div className="social">
+
+						<div className="version">
+							Version {this.appVersion}
+						</div>
+
 						<a href="mailto:colehafner@gmail.com">
 							<i className="fi-mail"></i>
 						</a>

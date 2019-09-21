@@ -2,8 +2,8 @@ import * as React from 'react';
 import { Project } from '../../models';
 
 export const Card: React.FunctionComponent<{project: Project}> = ({
-	project
-}) => 
+	project,
+}) =>
 	<div className="panel">
 		<h4 className="">{project.name}</h4>
 		<a
@@ -13,4 +13,4 @@ export const Card: React.FunctionComponent<{project: Project}> = ({
 			style={{background: `url(${project.img}) left top`, backgroundSize: 'cover'}}>
 			<div className="desc">{project.desc}</div>
 		</a>
-	</div>
+	</div>;
