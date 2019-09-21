@@ -164,6 +164,15 @@ h4 {
 			}
 		}
 	}
+
+	.version {
+		position: absolute;
+		font-size: 10px;
+		color: grey;
+		top: -20px;
+		text-align: center;
+		width: 100%;
+	}
 }
 
 .projects {
@@ -431,7 +440,6 @@ h4 {
 		display: block;
 	}
 	
-	
 	.about {
 		padding-left: 0;
 	}
@@ -449,34 +457,44 @@ h4 {
 		right: 0;
 		height: 100px;
 		width: 100%;
-	}
-	
-	.app-nav .logo {
-		background-image: none !important;
-		background-color: #fff;
-		border: 3px solid #000;
-		width: 80px;
-		height: 80px;
-		margin-top: 8px;
-		margin-left: 8px;
-	}
-	
-	.app-nav .logo span {
-		display: block;;
-	}
-	
-	.app-nav .social {
-		position: fixed;
-		background-color: #fff;
-	}
-	
-	.app-nav ul {
-		display: none;
-		background-color: #fff;
-		margin-top: 30px;
 
-		&.visible {
-			display: block;
+		.logo {
+			background-image: none !important;
+			background-color: #fff;
+			border: 3px solid #000;
+			width: 80px;
+			height: 80px;
+			margin-top: 8px;
+			margin-left: 8px;
+
+			span {
+				display: block;;
+			}
+		}
+		.social {
+			position: fixed;
+			background-color: #fff;
+
+			.version {
+				position: fixed;
+				left: -8px;
+				bottom: 12px;
+				z-index: 100;
+				width: 100px;
+				top: auto;
+			}
+		}
+		
+		ul {
+			display: none;
+			background-color: #fff;
+			margin-top: -9px;
+			padding-top: 10px;
+			box-shadow: 0 7px 10px rgba(0, 0, 0, 0.22);
+
+			&.visible {
+				display: block;
+			}
 		}
 	}
 }
