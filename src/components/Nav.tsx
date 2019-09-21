@@ -45,11 +45,11 @@ class Nav extends React.Component<any, State> {
 							<NavLink to="/portfolio" activeClassName="active">Portfolio</NavLink>
 						</li>
 
-						{/* <li>
-							<a onClick={e => this.toggleNav()} href="https://coleonsoftware.com" target="_blank">
+						<li>
+							<a onClick={e => this.toggleNav()} href="https://medium.com/@colehafner" target="_blank">
 								Blog
 							</a>
-						</li> */}
+						</li>
 					</ul>
 
 					<div className="social">
