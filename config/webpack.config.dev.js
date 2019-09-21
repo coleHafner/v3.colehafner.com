@@ -233,6 +233,11 @@ module.exports = {
     ],
   },
   plugins: [
+    new WebpackReplacePlugin({
+      exclude: /node_modules/,
+      include: /env.js/,
+      'process.env.APP_VERSION': JSON.stringify(paths.appVersion),
+    }),
     // Makes some environment variables available in index.html.
     // The public URL is available as %PUBLIC_URL% in index.html, e.g.:
     // <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico">
@@ -272,12 +277,6 @@ module.exports = {
       tsconfig: paths.appTsConfig,
       tslint: paths.appTsLint,
     }),
-    new WebpackReplacePlugin({
-      exclude: /node_modules/,
-      values: {
-        'process.env.APP_VERSION': JSON.stringify(paths.appVersion),
-      }
-    })
   ],
   // Some libraries import Node modules but don't use them in the browser.
   // Tell Webpack to provide empty mocks for them so importing them works.
