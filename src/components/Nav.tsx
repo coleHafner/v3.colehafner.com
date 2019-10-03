@@ -38,6 +38,7 @@ class Nav extends React.Component<any, State> {
 
 	render() {
 		const logoStyle = {background: 'url(images/logo.png) center center no-repeat', backgroundSize: '150px'};
+		const commitHash = process.env.COMMIT_REF || '';
 
 		return (
 			<div className="app-nav clearfix visible no-print">
@@ -61,7 +62,11 @@ class Nav extends React.Component<any, State> {
 					<div className="social">
 
 						<div className="version">
-							Version {this.appVersion}
+							{commitHash
+								? <a href=`https://github.com/v3.colehafner.com/${commitHash}`>Version {commitHash.substr(0, 7)}</a>
+								: <span>Version {this.appVersion}</span>
+							}
+							
 						</div>
 
 						<a href="mailto:colehafner@gmail.com">
