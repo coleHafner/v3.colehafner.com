@@ -10,7 +10,6 @@ interface State {
 
 class Nav extends React.Component<any, State> {
 	private appVersion: string;
-	private commitHash: string;
 
 	constructor(props: any) {
 		super(props);
@@ -25,7 +24,6 @@ class Nav extends React.Component<any, State> {
 		});
 
 		this.appVersion = env.appVersion;
-		this.commitHash = process.env.COMMIT_REF || '';
 	}
 
 	toggleNav(e?: React.MouseEvent): void {
@@ -66,10 +64,9 @@ class Nav extends React.Component<any, State> {
 					<div className="social">
 
 						<div className="version">
-							{this.commitHash
-								? <a href={`https://github.com/v3.colehafner.com/${this.commitHash}`}>Version {this.commitHash.substr(0, 7)}</a>
-								: <span>Version {this.appVersion}</span>
-							}
+							<a href={`https://github.com/colehafner/v3.colehafner.com/releases/tag/v${this.appVersion}`} target="_blank">
+								Version {this.appVersion}
+							</a>
 						</div>
 
 						<a href="mailto:colehafner@gmail.com">

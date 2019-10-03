@@ -7,8 +7,9 @@
     "dev": "node scripts/start.js",
     "lint": "tslint --project . --config tslint.prod.json",
     "lintfix": "tslint --project . --config tslint.prod.json --fix",
-    "test": "node scripts/test.js --env=jsdom",
-    "serve": "node_modules/.bin/serve build"
+    "release": "npx gru",
+    "serve": "node_modules/.bin/serve build",
+    "test": "node scripts/test.js --env=jsdom"
   },
   "keywords": [
     "portfolio",
@@ -19,6 +20,7 @@
   "author": "Cole Hafner",
   "license": "ISC",
   "devDependencies": {
+    "@nrfcloud/github-release-util": "^2.4.3",
     "@types/jest": "^23.3.1",
     "@types/node": "^10.9.4",
     "@types/react": "^16.8.22",
