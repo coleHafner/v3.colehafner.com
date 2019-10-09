@@ -8,3 +8,5 @@ export interface Project {
 	role: string;
 	visible: boolean;
 }
+
+export const getTitle = (page: string) => `${page} | colehafner.com`;

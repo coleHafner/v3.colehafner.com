@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Card } from './Card';
-import { Project } from '../../models';
+import { Project } from '../../utils';
 
 export const Results: React.FunctionComponent<{
 	projects: Project[],

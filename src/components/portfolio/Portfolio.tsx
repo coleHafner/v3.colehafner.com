@@ -3,7 +3,7 @@ import axios from 'axios';
 
 import Filter from './Filter';
 import { Results } from './Results';
-import { Project } from '../../models';
+import { Project, getTitle } from '../../utils';
 
 interface State {
 	allProjects: Project[];
@@ -24,6 +24,7 @@ export default class Portfolio extends React.Component<{}, State> {
 	componentDidMount(): void {
 		const url = 'https://1639u7vxbe.execute-api.us-west-2.amazonaws.com/dev/projects';
 		const apiKey = '0VS7jwXhIe68KNSSgrosmzS9t26eXNb1xwT4pGjj';
+		document.title = getTitle('Portfolio');
 
 		axios.get(url, { headers: { 'X-Api-Key': apiKey } })
 			.then((res: any) => {

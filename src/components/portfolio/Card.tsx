@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Project } from '../../models';
+import { Project } from '../../utils';
 
 export const Card: React.FunctionComponent<{project: Project}> = ({
 	project,
