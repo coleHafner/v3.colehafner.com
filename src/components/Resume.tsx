@@ -26,7 +26,7 @@ export const Resume: React.FunctionComponent = () => {
 	return (
 		<div className="resume">
 			<div className="sidebar">
-				<div className="logo" style={logoStyle}>
+				<div className="logo no-print" style={logoStyle}>
 					<span>CH</span>
 				</div>
 

@@ -15,7 +15,8 @@ body {
 	font-family: arial;
 
 	&.resume-wrapper {
-		margin-left: 0 !important;
+		margin: 0 !important;
+		padding: 0 !important;
 
 		.app-nav {
 			display: none !important;
@@ -364,20 +365,27 @@ h4 {
 .resume {
 	position: relative;
 	max-width: 1000px;
-	min-height: 1200px;
+	min-height: 950px;
 	margin: 30px auto 30px auto;
 	background-color: #f3f3f3;
+	-webkit-print-color-adjust: exact;
 
 	.sidebar {
 		position: absolute;
 		top: 0;
 		bottom: 0;
-		width: 350px;
+		width: 275px;
 		background-color: maroon;
 		color: white;
 
+		// for printing
 		.logo {
 			margin-top: 40px;
+			margin-left: auto;
+			margin-right: auto;
+			text-align: center;
+			width: 150px;
+			height: 150px;
 		}
 
 		.name {
@@ -443,8 +451,8 @@ h4 {
 	}
 	
 	.content {
-		margin-left: 350px;
-		padding: 10px;
+		margin-left: 275px;
+		padding: 20px;
 
 		h2 {
 			color: #999;
@@ -563,6 +571,14 @@ h4 {
 @media print {
 	.no-print, .no-print * {
 		display: none !important;
+	}
+
+	.resume  {
+		margin-top: 0;
+
+		.name {
+			margin-top: 50px;
+		}
 	}
 
 	body {
