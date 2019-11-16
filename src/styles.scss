@@ -449,29 +449,68 @@ h4 {
 			}
 		}
 	}
+
+	.status-badge {
+		background-color: yellow;
+		border-radius: 3px;
+		padding: 4px;
+		display: inline;
+		font-size: 13px;
+		border: 1px solid #000;
+		max-width: 100px;
+		text-align: center;
+		margin-left: 10px;
+
+
+		&.open-source {
+			background-color: green;
+		}
+	}
 	
 	.content {
 		margin-left: 275px;
 		padding: 20px;
 
-		h2 {
-			color: #999;
-			width: 147px;
-			background: maroon;
-			padding: 10px;
-			color: red;
-			text-align: center;
-			/* border-radius: 5px; */
-			text-transform: uppercase;
-			letter-spacing: 3px;
-			font-weight: lighter;
-			font-size: 17px;
-			position: relative;
-			left: -10px;
-			margin-bottom: 10px;
+		ul {
+			margin-bottom: 20px;
+			list-style: none;
+			margin-left: 0;
+			padding-left: 10px;
+		}
 
-			&.projects {
-				width: 250px;
+		.sect {
+			h2 {
+				color: #999;
+				width: 147px;
+				background: maroon;
+				padding: 10px;
+				color: red;
+				text-align: center;
+				/* border-radius: 5px; */
+				text-transform: uppercase;
+				letter-spacing: 3px;
+				font-weight: lighter;
+				font-size: 17px;
+				position: relative;
+				left: -10px;
+				margin-bottom: 0;
+
+				&.projects {
+					width: 250px;
+				}
+			}
+
+			h4 {
+				margin-bottom: 10px;
+			}
+
+			ul.factoids {
+				list-style: disc;
+				padding-left: 30px;
+
+				li {
+					margin-bottom: 5px;
+				}
 			}
 		}
 	}

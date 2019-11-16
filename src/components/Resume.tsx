@@ -1,6 +1,26 @@
 import * as React from 'react';
 import { getTitle } from '../utils';
 
+enum ProjectStatus {
+	OpenSource,
+	Proprietary,
+}
+
+export const StatusBadge: React.FunctionComponent<{
+	status: ProjectStatus,
+}> = ({
+	status,
+}): JSX.Element => {
+	return status === ProjectStatus.OpenSource
+		? (
+			<div className={status === ProjectStatus.OpenSource ? 'status-badge open-source' : 'status-badge'}>
+				{status === ProjectStatus.OpenSource ? 'Open Source' : 'Closed'}
+			</div>
+		) : (
+			<span></span>
+		);
+};
+
 export const Resume: React.FunctionComponent = () => {
 	React.useEffect(() => {
 		const newTitle: string = getTitle('Resume');
@@ -41,12 +61,90 @@ export const Resume: React.FunctionComponent = () => {
 	}];
 
 	const projects = [{
+		name: 'NiceRink',
+		link: 'https://www.nicerink.com/rink-builder',
+		desc: 'eCommerce site for buying DIY ice skating rinks.',
+		status: ProjectStatus.Proprietary,
+		type: 'site',
+		technologies: [
+			'VueJS',
+			'Magento 2',
+			'Node',
+			'SASS',
+			'GrassHopper CMS',
+		],
+		factoids: [
+			'VueJS powered frontend built on top of a custom Node CMS',
+			'Handled the entire customer experience, from sign in to checkout',
+			'Magento 2 eCommerce backend',
+			'Implemented custom shipping algorithm with several shipping APIs',
+		],
+	}, {
 		name: 'nRF Cloud',
 		link: 'https://nrfcloud.com',
-		technologies: ['React', 'Redux', 'HTML', 'SASS', ],
-		desc: 'Frontend platform for IoT devices that users to connect and manage their fleet of connected devices.',
-		status: 'CLOSED',
+		desc: 'IoT Platform that allows users to manage their fleet.',
+		status: ProjectStatus.Proprietary,
 		type: 'site',
+		technologies: [
+			'HTML',
+			'MQTT',
+			'React',
+			'Redux',
+			'SASS',
+			'Typescript',
+			'GraphQL',
+			'Webpack',
+		],
+		factoids: [
+			'React/Redux SPA written in Typescript',
+			'Improved documentation and added onboarding guide and style guide',
+			'Switched to Webpack, cut build times in half',
+			'Successfully pitched team on E2E tests suite',
+			'Integrated all kinds of IoT APIs',
+		],
+	}, {
+		name: 'GitHub Release Utility',
+		link: 'https://github.com/nRFCloud/github-release-util#nrfcloudgithub-release-util',
+		desc: 'NPM CLI script',
+		status: ProjectStatus.OpenSource,
+		type: 'site',
+		technologies: [
+			'GitHub API',
+			'Node',
+			'CommanderJS',
+			'NPM',
+			'NPX',
+			'Typescript',
+		],
+		factoids: [
+			'Create new GitHub release and upload build assets (or don\'t) with one simple command',
+			'Well documented and easy to follow',
+			'Asks questions by default, but supports "single-command" mode for use with other scripts',
+			'Accessible without install via NPX',
+		],
+	}, {
+		name: 'nRF Cloud CI/CD',
+		link: 'https://medium.com/@colehafner/setting-up-ci-cd-with-aws-codebuild-eec06137c680',
+		desc: 'Automated versioning, testing, and deploy for nRF Cloud.',
+		status: ProjectStatus.Proprietary,
+		type: 'site',
+		technologies: [
+			'AWS CodeBuild',
+			'GitHub API',
+			'AWS S3',
+			'YAML',
+			'AWS CloudFront',
+			'AWS WAF',
+			'AWS CloudFormation',
+		],
+		factoids: [
+			'Reduced complexity of deploy to nil. Just merge a PR!',
+			'Fully documented process so it can be understood, improved, and maintained',
+			'Built custom version detection, GitHub release script, and other utilities',
+			'Successfully converted team to Angular commit convetion',
+			'Fully locked down beta site to whitelisted IPs',
+			'Integrated headless E2E test suite',
+		],
 	}];
 
 	return (
@@ -156,14 +254,21 @@ export const Resume: React.FunctionComponent = () => {
 							desc,
 							status,
 							type,
-						}) => {return (
+							factoids,
+						}) =>
 							<li>
 								<h4>
-									<strong>{name}&nbsp;&nbsp;</strong>{' - '}
+									<strong>{name}</strong>{' '}
 									{desc}
+									<StatusBadge status={status} />
 								</h4>
-							</li>
-						)})}
+								<ul className="factoids">
+									{factoids.map(fact =>
+										<li key={fact}>{fact}</li>,
+									)}
+								</ul>
+							</li>,
+						)}
 					</ul>
 				</div>
 			</div>
