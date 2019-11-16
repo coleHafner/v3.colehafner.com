@@ -365,7 +365,7 @@ h4 {
 .resume {
 	position: relative;
 	max-width: 1000px;
-	min-height: 950px;
+	min-height: 1200px;
 	margin: 30px auto 30px auto;
 	background-color: #f3f3f3;
 	-webkit-print-color-adjust: exact;
@@ -456,6 +456,23 @@ h4 {
 
 		h2 {
 			color: #999;
+			width: 147px;
+			background: maroon;
+			padding: 10px;
+			color: red;
+			text-align: center;
+			/* border-radius: 5px; */
+			text-transform: uppercase;
+			letter-spacing: 3px;
+			font-weight: lighter;
+			font-size: 17px;
+			position: relative;
+			left: -10px;
+			margin-bottom: 10px;
+
+			&.projects {
+				width: 250px;
+			}
 		}
 	}
 }
@@ -575,6 +592,7 @@ h4 {
 
 	.resume  {
 		margin-top: 0;
+		min-height: 950px;
 
 		.name {
 			margin-top: 50px;

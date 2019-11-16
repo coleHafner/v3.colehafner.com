@@ -23,6 +23,32 @@ export const Resume: React.FunctionComponent = () => {
 		backgroundSize: '150px',
 	};
 
+	const exps = [{
+		start: '9/2018',
+		end: 'current',
+		company: 'Nordic Semiconductor',
+		title: 'Senior R&D Engineer',
+	}, {
+		start: '8/2016',
+		end: '9/2018',
+		company: 'Solid Digital',
+		title: 'Lead Frontend Developer',
+	}, {
+		start: '7/2011',
+		end: '8/2016',
+		company: 'Manifest Web Design',
+		title: 'Fullstack Engineer',
+	}];
+
+	const projects = [{
+		name: 'nRF Cloud',
+		link: 'https://nrfcloud.com',
+		technologies: ['React', 'Redux', 'HTML', 'SASS', ],
+		desc: 'Frontend platform for IoT devices that users to connect and manage their fleet of connected devices.',
+		status: 'CLOSED',
+		type: 'site',
+	}];
+
 	return (
 		<div className="resume">
 			<div className="sidebar">
@@ -95,16 +121,52 @@ export const Resume: React.FunctionComponent = () => {
 						</a>
 					</div>
 				</div>
-				
 			</div>
 
 			<div className="content">
 				<div className="sect">
 					<h2>Experience</h2>
 
+					<ul className="exp">
+						{exps.map(({
+							start,
+							end,
+							title,
+							company,
+						}) => {return (
+							<li key={company}>
+								<h4>
+									<i>{start} - {end}</i>&nbsp;&nbsp;
+									<strong>{company}&nbsp;&nbsp;</strong>
+									{title}{' '}
+								</h4>
+							</li>
+						)})}
+					</ul>
+
+				</div>
+				<div className="sect">
+					<h2 className="projects">Selected Projects</h2>
+
+					<ul className="projects">
+						{projects.map(({
+							name,
+							link,
+							technologies,
+							desc,
+							status,
+							type,
+						}) => {return (
+							<li>
+								<h4>
+									<strong>{name}&nbsp;&nbsp;</strong>{' - '}
+									{desc}
+								</h4>
+							</li>
+						)})}
+					</ul>
 				</div>
 			</div>
-				
 		</div>
 	);
 };
