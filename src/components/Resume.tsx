@@ -6,21 +6,6 @@ enum ProjectStatus {
 	Proprietary,
 }
 
-export const StatusBadge: React.FunctionComponent<{
-	status: ProjectStatus,
-}> = ({
-	status,
-}): JSX.Element => {
-	return status === ProjectStatus.OpenSource
-		? (
-			<div className={status === ProjectStatus.OpenSource ? 'status-badge open-source' : 'status-badge'}>
-				{status === ProjectStatus.OpenSource ? 'Open Source' : 'Closed'}
-			</div>
-		) : (
-			<span></span>
-		);
-};
-
 export const Resume: React.FunctionComponent = () => {
 	React.useEffect(() => {
 		const newTitle: string = getTitle('Resume');
@@ -71,13 +56,15 @@ export const Resume: React.FunctionComponent = () => {
 			'Magento 2',
 			'Node',
 			'SASS',
-			'GrassHopper CMS',
+			'CSS',
+			'PHP',
+			// 'GrassHopper CMS',
 		],
 		factoids: [
 			'VueJS powered frontend built on top of a custom Node CMS',
 			'Handled the entire customer experience, from sign in to checkout',
-			'Magento 2 eCommerce backend',
 			'Implemented custom shipping algorithm with several shipping APIs',
+			'Magento 2 eCommerce backend',
 		],
 	}, {
 		name: 'nRF Cloud',
@@ -94,10 +81,14 @@ export const Resume: React.FunctionComponent = () => {
 			'Typescript',
 			'GraphQL',
 			'Webpack',
+			'Javascript',
+			'JSON',
+			'VS Code',
+			'Git',
 		],
 		factoids: [
 			'React/Redux SPA written in Typescript',
-			'Improved documentation and added onboarding guide and style guide',
+			'Improved documentation and added onboarding and style guides',
 			'Switched to Webpack, cut build times in half',
 			'Successfully pitched team on E2E tests suite',
 			'Integrated all kinds of IoT APIs',
@@ -117,15 +108,15 @@ export const Resume: React.FunctionComponent = () => {
 			'Typescript',
 		],
 		factoids: [
-			'Create new GitHub release and upload build assets (or don\'t) with one simple command',
+			'Utility for automatic releases and asset uploads from CLI',
+			'Prompts by default, but supports CLI mode for use with other scripts',
 			'Well documented and easy to follow',
-			'Asks questions by default, but supports "single-command" mode for use with other scripts',
 			'Accessible without install via NPX',
 		],
 	}, {
 		name: 'nRF Cloud CI/CD',
 		link: 'https://medium.com/@colehafner/setting-up-ci-cd-with-aws-codebuild-eec06137c680',
-		desc: 'Automated versioning, testing, and deploy for nRF Cloud.',
+		desc: 'Automated versioning, testing, and deploy.',
 		status: ProjectStatus.Proprietary,
 		type: 'site',
 		technologies: [
@@ -139,13 +130,22 @@ export const Resume: React.FunctionComponent = () => {
 		],
 		factoids: [
 			'Reduced complexity of deploy to nil. Just merge a PR!',
-			'Fully documented process so it can be understood, improved, and maintained',
-			'Built custom version detection, GitHub release script, and other utilities',
+			'Documented fully so it can be understood and maintained',
+			'Built version detection, release script, and other utilities',
 			'Successfully converted team to Angular commit convetion',
-			'Fully locked down beta site to whitelisted IPs',
+			'Restricted beta site to only whitelisted IPs',
 			'Integrated headless E2E test suite',
 		],
 	}];
+
+	// filter out skills
+	let allSkills: string[] = [];
+
+	projects.forEach(({ technologies }) => {
+		allSkills = allSkills.concat(technologies);
+	});
+
+	const distinctSkills = Array.from(new Set(allSkills)).sort();
 
 	return (
 		<div className="resume">
@@ -162,27 +162,35 @@ export const Resume: React.FunctionComponent = () => {
 
 				<div className="sub">
 					<h4>
-						<i className="fi-arrow-right"></i>
-						Objective
+						<i className="fi-torso"></i>
+						About
 					</h4>
 					<div className="sect objective">
-						I am an expert full stack developer with a strong passion for clean, maintainable 
-						web applications. I have bachelor’s degree in computer science and more than 7 years 
-						experience in the web software field. Throughout my career, I have specialized in 
-						creating 
+						I am a seasoned web engineer with 10 years experience. 
+						Throughout my career I have learned to work hard, learn fast, 
+						and communicate clearly. I always leave things better than I 
+						found them and would be a great addition to any team.
 					</div>
 				</div>
 
 				<div className="sub">
 					<h4>
-						<i className="fi-arrow-right"></i>
-						Bio
+						<i className="fi-dollar-bill"></i>
+						Education
 					</h4>
 					<div className="sect objective">
-						I am an expert full stack developer with a strong passion for clean, maintainable 
-						web applications. I have bachelor’s degree in computer science and more than 7 years 
-						experience in the web software field. Throughout my career, I have specialized in 
-						creating 
+						<div className="degree">Bachelors in CS</div>
+						Southern Oregon University
+					</div>
+				</div>
+
+				<div className="sub">
+					<h4>
+						<i className="fi-star"></i>
+						Skills
+					</h4>
+					<div className="sect objective">
+						{distinctSkills.join(', ')}
 					</div>
 				</div>
 
@@ -201,7 +209,7 @@ export const Resume: React.FunctionComponent = () => {
 					<div className="sect">
 						<a href="https://twitter.com/colehafner" target="_blank">
 							<i className="fi-social-twitter"></i>
-							@colehafner
+							@coleHafner
 						</a>
 					</div>
 
@@ -209,6 +217,13 @@ export const Resume: React.FunctionComponent = () => {
 						<a href="mailto:colehafner@gmail.com" target="_blank">
 							<i className="fi-mail"></i>
 							colehafner@gmail.com
+						</a>
+					</div>
+
+					<div className="sect">
+						<a href="https://github.com/colehafner" target="_blank">
+							<i className="fi-social-github"></i>
+							@coleHafner
 						</a>
 					</div>
 
@@ -241,8 +256,8 @@ export const Resume: React.FunctionComponent = () => {
 							</li>
 						)})}
 					</ul>
-
 				</div>
+
 				<div className="sect">
 					<h2 className="projects">Selected Projects</h2>
 
@@ -258,19 +273,32 @@ export const Resume: React.FunctionComponent = () => {
 						}) =>
 							<li>
 								<h4>
+									<a href={link} target="_blank" className="no-print">
+										<i className="fi-web"></i>
+										&nbsp;
+									</a>
 									<strong>{name}</strong>{' '}
 									{desc}
-									<StatusBadge status={status} />
+									{status === ProjectStatus.OpenSource &&
+										<div className="status-badge open-source">
+											Open Source
+										</div>
+									}
 								</h4>
 								<ul className="factoids">
 									{factoids.map(fact =>
-										<li key={fact}>{fact}</li>,
+										<li key={fact}>- {fact}</li>,
 									)}
 								</ul>
 							</li>,
 						)}
 					</ul>
 				</div>
+
+				{/* <div className="sect">
+					<h2>Skills</h2>
+					{distinctSkills.join(', ')}
+				</div> */}
 			</div>
 		</div>
 	);
