@@ -60,9 +60,9 @@ class Nav extends React.Component<any, State> {
 							</a>
 						</li>
 
-						<li>
+						{/* <li>
 							<NavLink to="/resume" target="_blank">Resume</NavLink>
-						</li>
+						</li> */}
 					</ul>
 
 					<div className="social">
