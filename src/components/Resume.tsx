@@ -63,7 +63,7 @@ export const Resume: React.FunctionComponent = () => {
 			'VueJS powered frontend built on top of a custom Node CMS',
 			'Handled the entire customer experience, from sign in to checkout',
 			'Implemented custom shipping algorithm with several shipping APIs',
-			'Magento 2 eCommerce backend',
+			'Created components to make complex product options easy for user',
 		],
 	}, {
 		name: 'nRF Cloud',
@@ -109,9 +109,10 @@ export const Resume: React.FunctionComponent = () => {
 		],
 		factoids: [
 			'Utility for automatic releases and asset uploads from CLI',
-			'Prompts by default, but supports CLI mode for use with other scripts',
 			'Well documented and easy to follow',
-			'Accessible without install via NPX',
+			'Walks user through multi-step process to make releases easy',
+			'Enabled running without install via NPX',
+			'Supports CLI mode (no prompt) for use with other scripts',
 		],
 	}, {
 		name: 'nRF Cloud CI/CD',
