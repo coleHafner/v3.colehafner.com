@@ -364,10 +364,10 @@ h4 {
 
 .resume {
 	position: relative;
-	// max-width: 1000px;
+	max-width: 1000px;
 	min-height: 1200px;
 	margin: 30px auto 30px auto;
-	background-color: white;
+	background-color: #f3f3f3;
 	-webkit-print-color-adjust: exact;
 
 	.sidebar {
@@ -486,9 +486,7 @@ h4 {
 
 		.sect {
 			h2 {
-				color: #999;
-				background: maroon;
-				padding: 10px 20px 10px 20px;
+				padding-top: 40px;
 				color: red;
 				text-align: left;
 				text-transform: uppercase;

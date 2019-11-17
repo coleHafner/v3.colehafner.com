@@ -58,7 +58,6 @@ export const Resume: React.FunctionComponent = () => {
 			'SASS',
 			'CSS',
 			'PHP',
-			// 'GrassHopper CMS',
 		],
 		factoids: [
 			'VueJS powered frontend built on top of a custom Node CMS',
@@ -85,6 +84,7 @@ export const Resume: React.FunctionComponent = () => {
 			'JSON',
 			'VS Code',
 			'Git',
+			'Cypress',
 		],
 		factoids: [
 			'React/Redux SPA written in Typescript',
@@ -132,7 +132,7 @@ export const Resume: React.FunctionComponent = () => {
 			'Reduced complexity of deploy to nil. Just merge a PR!',
 			'Documented fully so it can be understood and maintained',
 			'Built version detection, release script, and other utilities',
-			'Successfully converted team to Angular commit convetion',
+			'Successfully converted team to Angular commit convention',
 			'Restricted beta site to only whitelisted IPs',
 			'Integrated headless E2E test suite',
 		],
@@ -230,7 +230,7 @@ export const Resume: React.FunctionComponent = () => {
 					<div className="sect">
 						<a href="https://colehafner.com" target="_blank">
 							<i className="fi-web"></i>
-							colehafner.com
+							https://colehafner.com
 						</a>
 					</div>
 				</div>
@@ -265,10 +265,8 @@ export const Resume: React.FunctionComponent = () => {
 						{projects.map(({
 							name,
 							link,
-							technologies,
 							desc,
 							status,
-							type,
 							factoids,
 						}) =>
 							<li>
